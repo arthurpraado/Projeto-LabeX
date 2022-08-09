@@ -7,34 +7,18 @@ import axios from "axios";
 import Countries from "../countries/Countries";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import InputsStyle from "../components/InputsStyle"
+import Buttons from "../components/ButtonsStyle";
+import Body from "../components/BodyStyle";
 
 const FormStyle = styled.form`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
-  margin: 10px;
-  height: 72vh;
 `;
 
-const Buttons = styled.button`
-  display: flex;
-  background-color: #4caf50;
-  border: solid 1px black;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  font-size: 16px;
-  margin: 4px;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: 0.2s linear;
-  margin: 0 auto;
-  &:hover {
-    background-color: aquamarine;
-  }
+const SelectStyle = styled.select`
+  margin: 10px;
+  padding: 10px;
 `;
 
 const ApplicationFormPage = () => {
@@ -103,12 +87,13 @@ const ApplicationFormPage = () => {
   return (
     <div>
       <Header />
+      <Body>
       <FormStyle onSubmit={subscribeToTrip}>
-        <select value={chosenTrip} onChange={handleTripChange} required>
+        <SelectStyle value={chosenTrip} onChange={handleTripChange} required>
           <option value="">Escolha uma viagem</option>
           {tripOptions}
-        </select>
-        <input
+        </SelectStyle>
+        <InputsStyle
           name={"name"}
           value={form.name}
           onChange={onChange}
@@ -116,7 +101,7 @@ const ApplicationFormPage = () => {
           required
           pattern={"^.{3,}"}
         />
-        <input
+        <InputsStyle
           name={"age"}
           value={form.age}
           onChange={onChange}
@@ -125,7 +110,7 @@ const ApplicationFormPage = () => {
           type="number"
           min={18}
         />
-        <input
+        <InputsStyle
           name={"applicationText"}
           value={form.applicationText}
           onChange={onChange}
@@ -133,7 +118,7 @@ const ApplicationFormPage = () => {
           required
           pattern={"^.{30,}"}
         />
-        <input
+        <InputsStyle
           name={"profession"}
           value={form.profession}
           onChange={onChange}
@@ -141,7 +126,7 @@ const ApplicationFormPage = () => {
           required
           pattern={"^.{10,}"}
         />
-        <select
+        <SelectStyle
           onChange={onChange}
           name={"country"}
           value={form.country}
@@ -149,11 +134,13 @@ const ApplicationFormPage = () => {
         >
           <option value={""}>Escolha um país</option>
           {countryOptions}
-        </select>
+        </SelectStyle>
+        <div>
         <Buttons> Enviar </Buttons>
         <Buttons onClick={() => goBack(navigate)}> Voltar </Buttons>
+        </div>
       </FormStyle>
-      <div></div>
+      </Body>
       <Footer />
     </div>
   );
