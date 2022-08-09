@@ -5,6 +5,9 @@ import { goBack, goToLoginPage } from "../routes/coordinator";
 import axios from "axios";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import ButtonsStyle from "../components/ButtonsStyle";
+import Body from "../components/BodyStyle";
+import CardStyle from "../components/CardStyle";
 
 const CardCandidate = styled.div`
   display: flex;
@@ -12,26 +15,17 @@ const CardCandidate = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
+  border: solid black 2px;
+  margin: 20px;
+  width: 30vw;
+  padding: 10px;
+  color: black;
+  background-color: blueviolet;
 `;
 
-const Buttons = styled.button`
-  display: flex;
-  background-color: #4caf50;
-  border: solid 1px black;
+const Titles = styled.h2`
   color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  font-size: 16px;
-  margin: 4px;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: 0.2s linear;
-  margin: 0 auto;
-  &:hover {
-    background-color: aquamarine;
-  }
-`;
+`
 
 const TripDetailsPage = () => {
   const [detailsTrip, setDetailsTrip] = useState({
@@ -89,51 +83,54 @@ const TripDetailsPage = () => {
 
   const mappedCandidates = detailsTrip.candidates.map((candidate) => {
     return (
-      <CardCandidate>
+      <CardStyle>
         <h3>Nome: {candidate.name} </h3>
         <p>Profissão: {candidate.profession} </p>
         <p>Idade: {candidate.age} </p>
         <p>País: {candidate.country} </p>
         <p>Texto de aplicação: {candidate.applicationText} </p>
-        <Buttons onClick={() => decideCandidates(candidate.id, true)}>
+        <ButtonsStyle onClick={() => decideCandidates(candidate.id, true)}>
           Aprovar
-        </Buttons>
-        <Buttons onClick={() => decideCandidates(candidate.id, false)}>
+        </ButtonsStyle>
+        <ButtonsStyle onClick={() => decideCandidates(candidate.id, false)}>
           Reprovar
-        </Buttons>
-      </CardCandidate>
+        </ButtonsStyle>
+      </CardStyle>
     );
   });
 
   const approvedCandidates = detailsTrip.approved.map((candidate) => {
     return (
-      <CardCandidate>
+      <CardStyle>
         <h3>Nome: {candidate.name} </h3>
         <p>Profissão: {candidate.profession} </p>
         <p>Idade: {candidate.age} </p>
         <p>País: {candidate.country} </p>
         <p>Texto de aplicação: {candidate.applicationText} </p>
-      </CardCandidate>
+      </CardStyle>
     );
   });
 
   return (
     <div>
-    <Header/>
-    <CardCandidate>
-      <h3>Nome: {detailsTrip.name}</h3>
-      <p>Duração em dias: {detailsTrip.durationInDays}</p>
-      <p>Planeta: {detailsTrip.planet}</p>
-      <p>Data: {detailsTrip.date}</p>
-      <p>Descrição: {detailsTrip.description}</p>
-      <Buttons onClick={() => goBack(navigate)}> Voltar </Buttons>
-      <h2>Candidatos Pendentes</h2>
-      {mappedCandidates}
+      <Header />
+      <Body>
+        <CardCandidate>
+          <h3>Nome: {detailsTrip.name}</h3>
+          <p>Duração em dias: {detailsTrip.durationInDays}</p>
+          <p>Planeta: {detailsTrip.planet}</p>
+          <p>Data: {detailsTrip.date}</p>
+          <p>Descrição: {detailsTrip.description}</p>
+          <ButtonsStyle onClick={() => goBack(navigate)}> Voltar </ButtonsStyle>
+          </CardCandidate>
+          <Titles>Candidatos Pendentes</Titles>
+          {mappedCandidates}
 
-      <h2>Candidatos Aprovados</h2>
-      {approvedCandidates}
-    </CardCandidate>
-    <Footer/>
+          <Titles>Candidatos Aprovados</Titles>
+          {approvedCandidates}
+        
+      </Body>
+      <Footer />
     </div>
   );
 };
